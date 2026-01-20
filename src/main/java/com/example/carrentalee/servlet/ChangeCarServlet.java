@@ -21,7 +21,7 @@ public class ChangeCarServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
 
         req.setAttribute("car", carService.getCarById(id));
-        req.getRequestDispatcher("/changeCar.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/changeCar.jsp").forward(req, resp);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

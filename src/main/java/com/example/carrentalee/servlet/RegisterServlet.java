@@ -1,7 +1,7 @@
 package com.example.carrentalee.servlet;
 
-import com.example.carrentalee.enums.UserRole;
 import com.example.carrentalee.model.User;
+import com.example.carrentalee.enums.UserRole;
 import com.example.carrentalee.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,28 +11,34 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet {
+
     private UserService userService = new UserService();
 
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/login.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/register.jsp").forward(req, resp);
     }
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
+        UserRole role = UserRole.valueOf(req.getParameter("role"));
 
-        User user = userService.getUserByUsernameAndPassword(name, password);
-
-        if (user != null && user.getRole() == UserRole.ADMIN) {
-            req.getSession().setAttribute("user", user);
-            resp.sendRedirect("/adminPage");
-        } else if (user != null && user.getRole() == UserRole.USER){
-            req.getSession().setAttribute("user", user);
-            resp.sendRedirect("/userPage");
+        if (userService.getUserByUsername(name) != null) {
+            req.getSession().setAttribute("message", "Username already exists");
+            resp.sendRedirect("/register");
         } else {
-            resp.sendRedirect("/login?error=Invalid credentials");
+            User user = new User();
+            user.setName(name);
+            user.setPassword(password);
+            user.setRole(role);
+
+            userService.addUser(user);
+            req.getSession().setAttribute("message", "User registered successfully");
+            resp.sendRedirect("/login");
         }
     }
 }

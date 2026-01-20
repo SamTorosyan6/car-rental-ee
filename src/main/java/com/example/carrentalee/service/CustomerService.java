@@ -85,6 +85,27 @@ public class CustomerService {
         return null;
     }
 
+    public Customer getCustomerByName(String name) {
+        String sql = "SELECT * FROM customer WHERE name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setSurname(rs.getString("surname"));
+                customer.setLicenseNumber(rs.getInt("license_number"));
+                customer.setPhone(rs.getString("phone"));
+                customer.setEmail(rs.getString("email"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void changeCustomer(Customer customer) {
         String sql = "UPDATE customer SET name = ?, surname = ?, license_number = ?, phone = ?, email = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

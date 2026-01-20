@@ -27,7 +27,7 @@ public class ChangeRentalServlet extends HttpServlet {
 
         int id = Integer.parseInt(req.getParameter("id"));
         req.setAttribute("rental", rentalService.getRentalById(id));
-        req.getRequestDispatcher("changeRental.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/changeRental.jsp").forward(req, resp);
     }
 
     @Override

@@ -27,7 +27,6 @@
     <div class="form-box">
         <h2 style="text-align: center;">Edit Vehicle Info</h2>
         <form action="<%=path%>/changeCar" method="POST">
-            <%-- Թաքնված ID-ն անհրաժեշտ է Servlet-ի համար --%>
             <input type="hidden" name="id" value="<%=car.getId()%>">
 
             <div class="form-group">

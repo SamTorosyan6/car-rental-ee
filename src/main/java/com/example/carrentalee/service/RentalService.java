@@ -50,6 +50,30 @@ public class RentalService {
         }
     }
 
+    public List<Rental> getRentalsByUserId(int id){
+
+        String sql = "SELECT * FROM rental WHERE customer_id = ?";
+        List<Rental> rentals = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Rental rental = new Rental();
+                rental.setId(resultSet.getInt("id"));
+                rental.setCar(carService.getCarById(resultSet.getInt("car_id")));
+                rental.setCustomer(customerService.getCustomerById(resultSet.getInt("customer_id")));
+                rental.setStartDate(resultSet.getDate("start_date"));
+                rental.setEndDate(resultSet.getDate("end_date"));
+                rental.setTotalCost(resultSet.getDouble("total_cost"));
+                rental.setRentalStatus(RentalStatus.valueOf(resultSet.getString("status")));
+                rentals.add(rental);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rentals;
+    }
+
     public List<Rental> getAllRentals() {
         String sql = "SELECT * FROM rental";
         List<Rental> rentals = new ArrayList<>();

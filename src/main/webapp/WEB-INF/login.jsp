@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login | Car Rental</title>
+    <title>Login</title>
     <style>
         body {
             margin: 0;

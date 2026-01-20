@@ -1,4 +1,5 @@
 <%@ page import="com.example.carrentalee.model.User" %>
+<%@ page import="com.example.carrentalee.enums.UserRole" %>
 <%
     User currentUser = (User) session.getAttribute("user");
     String path = request.getContextPath();
@@ -58,13 +59,13 @@
 <div class="navbar">
     <a href="<%=path%>/">Home</a>
     <a href="<%=path%>/cars">Cars</a>
-    <% if (currentUser != null) { %>
+    <% if (currentUser != null && (currentUser.getRole() == UserRole.ADMIN)) { %>
     <a href="<%=path%>/customers">Customers</a>
     <a href="<%=path%>/rentals">Rentals</a>
     <a href="<%=path%>/adminPage" style="color: #f39c12;">Admin Panel</a>
     <a href="<%=path%>/logout" style="color: #e74c3c;">Logout</a>
     <% } else { %>
-    <a href="<%=path%>/login">Admin Login</a>
+    <a href="<%=path%>/login">Login</a>
     <% } %>
 </div>
 

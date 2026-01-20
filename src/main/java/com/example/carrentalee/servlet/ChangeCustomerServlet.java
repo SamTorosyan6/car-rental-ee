@@ -23,7 +23,7 @@ public class ChangeCustomerServlet extends HttpServlet {
         Customer customer = customerService.getCustomerById(id);
 
         req.setAttribute("customer", customer);
-        req.getRequestDispatcher("changeCustomer.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/changeCustomer.jsp").forward(req, resp);
     }
 
     @Override

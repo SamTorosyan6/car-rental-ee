@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/adminPage")
-public class AdminPageServlet extends HttpServlet {
+@WebServlet("/userPage")
+public class UserPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -17,6 +17,6 @@ public class AdminPageServlet extends HttpServlet {
             resp.sendRedirect("/login");
             return;
         }
-        req.getRequestDispatcher("WEB-INF/admin.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/user.jsp").forward(req, resp);
     }
 }

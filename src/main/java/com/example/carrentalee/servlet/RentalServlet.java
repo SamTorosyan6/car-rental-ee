@@ -19,6 +19,6 @@ public class RentalServlet extends HttpServlet {
             throws ServletException, IOException {
 
         req.setAttribute("rentals", rentalService.getAllRentals());
-        req.getRequestDispatcher("rentals.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/rentals.jsp").forward(req, resp);
     }
 }
